@@ -13,9 +13,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    
-    self.imageTitleCell.translatesAutoresizingMaskIntoConstraints = YES;
 }
 
 
