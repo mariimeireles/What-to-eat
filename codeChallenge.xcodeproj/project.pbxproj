@@ -16,6 +16,7 @@
 		3E15BBFA208774B10029597E /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E15BBF9208774B10029597E /* CustomCell.m */; };
 		3E15BBFC20879B4B0029597E /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E15BBFB20879B4B0029597E /* CustomCell.xib */; };
 		4907591320E812A60021CE93 /* NetworkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907591220E812A60021CE93 /* NetworkProcessor.swift */; };
+		4907592520E8D84B0021CE93 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907592420E8D84B0021CE93 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		3E15BBFB20879B4B0029597E /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		4907591120E812A60021CE93 /* codeChallenge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "codeChallenge-Bridging-Header.h"; sourceTree = "<group>"; };
 		4907591220E812A60021CE93 /* NetworkProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProcessor.swift; sourceTree = "<group>"; };
+		4907592420E8D84B0021CE93 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				3E15BBF9208774B10029597E /* CustomCell.m */,
 				3E15BBFB20879B4B0029597E /* CustomCell.xib */,
 				3E15BBE8208754FE0029597E /* Main.storyboard */,
+				4907592420E8D84B0021CE93 /* DetailViewController.swift */,
 				3E15BBEB208754FE0029597E /* Assets.xcassets */,
 				3E15BBED208754FE0029597E /* LaunchScreen.storyboard */,
 				3E15BBF0208754FE0029597E /* Info.plist */,
@@ -159,6 +162,7 @@
 				3E15BBE7208754FE0029597E /* ViewController.m in Sources */,
 				3E15BBF2208754FE0029597E /* main.m in Sources */,
 				3E15BBFA208774B10029597E /* CustomCell.m in Sources */,
+				4907592520E8D84B0021CE93 /* DetailViewController.swift in Sources */,
 				3E15BBE4208754FE0029597E /* AppDelegate.m in Sources */,
 				4907591320E812A60021CE93 /* NetworkProcessor.swift in Sources */,
 			);
