@@ -1,35 +1,26 @@
-//
-//  DetailViewController.swift
-//  codeChallenge
-//
-//  Created by Mariana Meireles on 01/07/18.
-//  Copyright © 2018 Fernando Suárez. All rights reserved.
-//
 
+
+import Foundation
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
+
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var dateLabel: UILabel!
+    @IBOutlet private var descriptionLabel: UILabel!
+    var image: UIImage?
+    var titleText: String?
+    var dateText: Date?
+    var descriptionText: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        imageView.image = image
+        titleLabel.text = titleText
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateLabel.text = dateFormatter.string(from: dateText!)
+        descriptionLabel.text = descriptionText
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -20,16 +20,7 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
 @implementation ViewController
 
 - (void)viewDidLoad {
-    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=15&format=json&nojsoncallback=1&extras=date_taken,description,title,tags,url_t", FlickrAPIKey, @"cooking"];
-    NSURL *URL = [NSURL URLWithString:urlString];
-    NetworkProcessor *networkProcessor = [[NetworkProcessor alloc]initWithUrl:URL];
-    [networkProcessor downloadJSONFromURL:^(NSDictionary * result) {
-        self.photos = [[result objectForKey:@"photos"] objectForKey:@"photo"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self reload];
-        });
-    }];
-    
+    [self loadFlickrPhotos];
     UINib *cellNib = [UINib nibWithNibName:@"CustomCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"CustomCell"];
 }
@@ -42,15 +33,11 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *identifier = @"CustomCell";
-    
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
     if (cell == nil) {
         cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    
     cell.imageTitleCell.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"title"];
     cell.imageSubtitleCell.text = [[[self.photos objectAtIndex:indexPath.row] objectForKey:@"description"] objectForKey:@"_content"];
     NSString *urlPhotoString = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"url_t"];
@@ -62,8 +49,38 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DetailViewController *detailController = [storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
+    NSString *urlPhotoString = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"url_t"];
+    NSURL *urlPhoto = [NSURL URLWithString:urlPhotoString];
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL:urlPhoto];
+    UIImage *image = [[UIImage alloc] initWithData:imageData];
+    detailController.image = image;
+    detailController.titleText = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"title"];
+    NSString *dateString = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"datetaken"];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormat dateFromString:dateString];
+    detailController.dateText = date;
+    detailController.descriptionText = [[[self.photos objectAtIndex:indexPath.row] objectForKey:@"description"] objectForKey:@"_content"];
+    [self.navigationController pushViewController:detailController animated:YES];
+}
+
 - (void)reload {
      [self.tableView reloadData];
+}
+
+- (void)loadFlickrPhotos {
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=15&format=json&nojsoncallback=1&extras=date_taken,description,title,tags,url_t", FlickrAPIKey, @"cooking"];
+    NSURL *URL = [NSURL URLWithString:urlString];
+    NetworkProcessor *networkProcessor = [[NetworkProcessor alloc]initWithUrl:URL];
+    [networkProcessor downloadJSONFromURL:^(NSDictionary * result) {
+        self.photos = [[result objectForKey:@"photos"] objectForKey:@"photo"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self reload];
+        });
+    }];
 }
 
 @end
