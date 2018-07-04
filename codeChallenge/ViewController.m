@@ -14,6 +14,8 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
 
 @interface ViewController ()
 @property (nonatomic, readwrite) NSArray *photos;
+@property (nonatomic, readwrite) NSArray *loadedPhotos;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @end
 
@@ -25,6 +27,24 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"CustomCell"];
 }
 
+- (IBAction)segmentedControlValueChanged:(id)sender {
+    switch (_segmentedControl.selectedSegmentIndex) {
+        case 0:
+            self.photos = self.loadedPhotos;
+            [self reload];
+            break;
+        case 1:
+            self.photos = [self sortPhotos:NO];
+            [self reload];
+            break;
+        case 2:
+            self.photos = [self sortPhotos:YES];
+            [self reload];
+            break;
+        default:
+            break;
+    }
+}
 
 //TableViewDatasource
 
@@ -71,12 +91,19 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
      [self.tableView reloadData];
 }
 
+- (NSArray *)sortPhotos:(BOOL)isAscending {
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"datetaken" ascending:isAscending];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    return [self.photos sortedArrayUsingDescriptors:sortDescriptors];
+}
+
 - (void)loadFlickrPhotos {
     NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=15&format=json&nojsoncallback=1&extras=date_taken,description,title,tags,url_t", FlickrAPIKey, @"cooking"];
     NSURL *URL = [NSURL URLWithString:urlString];
     NetworkProcessor *networkProcessor = [[NetworkProcessor alloc]initWithUrl:URL];
     [networkProcessor downloadJSONFromURL:^(NSDictionary * result) {
         self.photos = [[result objectForKey:@"photos"] objectForKey:@"photo"];
+        self.loadedPhotos = self.photos;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reload];
         });

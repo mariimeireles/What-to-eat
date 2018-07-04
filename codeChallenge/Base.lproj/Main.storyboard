@@ -34,7 +34,24 @@
                             <outlet property="delegate" destination="dMw-tS-P0T" id="4lW-YT-UTd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ZY5-a4-D2O"/>
+                    <navigationItem key="navigationItem" id="ZY5-a4-D2O">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="F5I-Hr-sjH">
+                            <rect key="frame" x="90.5" y="7" width="194" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Random"/>
+                                <segment title="Newest"/>
+                                <segment title="Oldest"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlValueChanged:" destination="dMw-tS-P0T" eventType="valueChanged" id="aVg-RW-D6p"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="segmentedControl" destination="F5I-Hr-sjH" id="PVR-hH-35U"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXG-7z-5OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
