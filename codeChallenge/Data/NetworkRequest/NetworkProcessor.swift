@@ -4,7 +4,7 @@ import Foundation
 
 @objc final class NetworkProcessor: NSObject {
     
-    let url: URL
+    private let url: URL
     
     init(url: URL) {
         self.url = url

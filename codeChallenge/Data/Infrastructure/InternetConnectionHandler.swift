@@ -2,7 +2,7 @@
 
 import Foundation
 
-class InternetConnectionHandler {
+final class InternetConnectionHandler {
 
     func verifyConnection(_ error: Error) -> Error {
         guard let urlError = error as? URLError else { return ServiceError.other }
