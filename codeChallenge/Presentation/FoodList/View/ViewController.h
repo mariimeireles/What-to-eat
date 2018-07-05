@@ -7,9 +7,9 @@
 //
 
 @import UIKit;
+@class NetworkProcessor;
 
 @interface ViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
-
 
 @end
 

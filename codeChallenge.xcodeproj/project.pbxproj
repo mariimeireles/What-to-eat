@@ -17,6 +17,9 @@
 		3E15BBFC20879B4B0029597E /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E15BBFB20879B4B0029597E /* CustomCell.xib */; };
 		4907591320E812A60021CE93 /* NetworkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907591220E812A60021CE93 /* NetworkProcessor.swift */; };
 		4907592520E8D84B0021CE93 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907592420E8D84B0021CE93 /* DetailViewController.swift */; };
+		49EDFFCD20EE0F0400EED53E /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EDFFCC20EE0F0400EED53E /* JSON.swift */; };
+		49EDFFCF20EE246300EED53E /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EDFFCE20EE246300EED53E /* ServiceError.swift */; };
+		49EDFFD120EE24A600EED53E /* InternetConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EDFFD020EE24A600EED53E /* InternetConnectionHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		4907591120E812A60021CE93 /* codeChallenge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "codeChallenge-Bridging-Header.h"; sourceTree = "<group>"; };
 		4907591220E812A60021CE93 /* NetworkProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProcessor.swift; sourceTree = "<group>"; };
 		4907592420E8D84B0021CE93 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		49EDFFCC20EE0F0400EED53E /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		49EDFFCE20EE246300EED53E /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		49EDFFD020EE24A600EED53E /* InternetConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,23 +74,114 @@
 		3E15BBE1208754FE0029597E /* codeChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				3E15BBE2208754FE0029597E /* AppDelegate.h */,
+				49EDFFD320EE253300EED53E /* Data */,
+				49EDFFD820EE25B300EED53E /* Presentation */,
+				49EDFFD620EE259400EED53E /* Commons */,
+				49EDFFD720EE25A200EED53E /* Resources */,
+				49EDFFD520EE256E00EED53E /* SupportingFiles */,
+			);
+			path = codeChallenge;
+			sourceTree = "<group>";
+		};
+		49EDFFD220EE251600EED53E /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				49EDFFCE20EE246300EED53E /* ServiceError.swift */,
+				49EDFFD020EE24A600EED53E /* InternetConnectionHandler.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		49EDFFD320EE253300EED53E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				49EDFFD420EE254700EED53E /* NetworkRequest */,
+				49EDFFD220EE251600EED53E /* Infrastructure */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		49EDFFD420EE254700EED53E /* NetworkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				4907591220E812A60021CE93 /* NetworkProcessor.swift */,
+			);
+			path = NetworkRequest;
+			sourceTree = "<group>";
+		};
+		49EDFFD520EE256E00EED53E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				3E15BBF1208754FE0029597E /* main.m */,
+				4907591120E812A60021CE93 /* codeChallenge-Bridging-Header.h */,
+				3E15BBED208754FE0029597E /* LaunchScreen.storyboard */,
 				3E15BBE3208754FE0029597E /* AppDelegate.m */,
+				3E15BBE2208754FE0029597E /* AppDelegate.h */,
+				3E15BBF0208754FE0029597E /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		49EDFFD620EE259400EED53E /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				49EDFFCC20EE0F0400EED53E /* JSON.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
+		49EDFFD720EE25A200EED53E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3E15BBEB208754FE0029597E /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		49EDFFD820EE25B300EED53E /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3E15BBE8208754FE0029597E /* Main.storyboard */,
+				49EDFFD920EE25CD00EED53E /* FoodList */,
+				49EDFFDD20EE263100EED53E /* FoodDetail */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		49EDFFD920EE25CD00EED53E /* FoodList */ = {
+			isa = PBXGroup;
+			children = (
+				49EDFFDA20EE25DE00EED53E /* View */,
+			);
+			path = FoodList;
+			sourceTree = "<group>";
+		};
+		49EDFFDA20EE25DE00EED53E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				49EDFFDB20EE25F600EED53E /* FoodCell */,
 				3E15BBE5208754FE0029597E /* ViewController.h */,
 				3E15BBE6208754FE0029597E /* ViewController.m */,
-				4907591220E812A60021CE93 /* NetworkProcessor.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		49EDFFDB20EE25F600EED53E /* FoodCell */ = {
+			isa = PBXGroup;
+			children = (
 				3E15BBF8208774B10029597E /* CustomCell.h */,
 				3E15BBF9208774B10029597E /* CustomCell.m */,
 				3E15BBFB20879B4B0029597E /* CustomCell.xib */,
-				3E15BBE8208754FE0029597E /* Main.storyboard */,
-				4907592420E8D84B0021CE93 /* DetailViewController.swift */,
-				3E15BBEB208754FE0029597E /* Assets.xcassets */,
-				3E15BBED208754FE0029597E /* LaunchScreen.storyboard */,
-				3E15BBF0208754FE0029597E /* Info.plist */,
-				3E15BBF1208754FE0029597E /* main.m */,
-				4907591120E812A60021CE93 /* codeChallenge-Bridging-Header.h */,
 			);
-			path = codeChallenge;
+			path = FoodCell;
+			sourceTree = "<group>";
+		};
+		49EDFFDD20EE263100EED53E /* FoodDetail */ = {
+			isa = PBXGroup;
+			children = (
+				4907592420E8D84B0021CE93 /* DetailViewController.swift */,
+			);
+			path = FoodDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,7 +256,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49EDFFCF20EE246300EED53E /* ServiceError.swift in Sources */,
 				3E15BBE7208754FE0029597E /* ViewController.m in Sources */,
+				49EDFFCD20EE0F0400EED53E /* JSON.swift in Sources */,
+				49EDFFD120EE24A600EED53E /* InternetConnectionHandler.swift in Sources */,
 				3E15BBF2208754FE0029597E /* main.m in Sources */,
 				3E15BBFA208774B10029597E /* CustomCell.m in Sources */,
 				4907592520E8D84B0021CE93 /* DetailViewController.swift in Sources */,
@@ -314,6 +414,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nanosuarez.codeChallenge;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeChallenge/codeChallenge-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -336,6 +437,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nanosuarez.codeChallenge;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeChallenge/codeChallenge-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

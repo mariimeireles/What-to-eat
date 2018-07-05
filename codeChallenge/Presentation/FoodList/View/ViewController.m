@@ -101,13 +101,56 @@ NSString *const FlickrAPIKey = @"2ed35a9f4fda03bc96e73dbd03602780";
     NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=15&format=json&nojsoncallback=1&extras=date_taken,description,title,tags,url_t", FlickrAPIKey, @"cooking"];
     NSURL *URL = [NSURL URLWithString:urlString];
     NetworkProcessor *networkProcessor = [[NetworkProcessor alloc]initWithUrl:URL];
-    [networkProcessor downloadJSONFromURL:^(NSDictionary * result) {
+    [networkProcessor downloadJSONFromURLOnSucess:^(NSDictionary * result) {
         self.photos = [[result objectForKey:@"photos"] objectForKey:@"photo"];
         self.loadedPhotos = self.photos;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reload];
         });
+    } onError:^(NSError * error) {
+        switch (error.code) {
+            case 0:
+                [self presentNoConnectionError];
+                break;
+            case 1:
+                [self presentTimeOutError];
+                break;
+            default:
+                [self presentGenericError];
+                break;
+        }
     }];
+}
+
+- (void)presentGenericError {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Something went wrong." message:@"Sorry, it's not you, it's us! Please try again later." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self loadFlickrPhotos];
+        }]
+    ];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)presentTimeOutError {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh no!" message:@"This is taking a little longer than usual." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self loadFlickrPhotos];
+        }]
+    ];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)presentNoConnectionError {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh no!" message:@"Could not find a network connection. Connect to the internet to try again." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self loadFlickrPhotos];
+        }]
+    ];
+    [alert addAction: [UIAlertAction actionWithTitle:@"Check connection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+        }]
+    ];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

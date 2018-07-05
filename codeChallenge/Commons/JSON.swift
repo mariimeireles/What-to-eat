@@ -1,0 +1,3 @@
+
+
+typealias JSON = [String: Any]
